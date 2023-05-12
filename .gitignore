@@ -1,6 +1,7 @@
 input/*
 models/*
 output/*
+processed/*
 !input/.gitkeep
 !models/.gitkeep
 !output/.gitkeep

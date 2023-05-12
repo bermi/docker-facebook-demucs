@@ -1,9 +1,13 @@
 SHELL = /bin/sh
 current-dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
+process:
+	mkdir -p processed
+	set -uEo pipefail && find input -type f -name '*.mp3' -exec ./process.sh {} \;
+
 # Default options
 gpu = false
-mp3output = false
+mp3output = true
 model = htdemucs
 splittrack =
 
@@ -30,7 +34,7 @@ help: ## Display available targets
 .SILENT:
 run: init build ## Run demucs to split the specified track in the input folder
 	docker run --rm -i \
-		--name=demucs \
+		--name=demucs-$$(date +%s%3N) \
 		$(docker-gpu-option) \
 		-v $(current-dir)input:/data/input \
 		-v $(current-dir)output:/data/output \
