@@ -21,6 +21,8 @@ RUN apt update && apt install -y --no-install-recommends \
 RUN git clone -b main --single-branch https://github.com/facebookresearch/demucs /lib/demucs
 WORKDIR /lib/demucs
 
+RUN python3 -m pip install --upgrade pip
+
 # Install dependencies
 RUN python3 -m pip install -e . --no-cache-dir
 # Run once to ensure demucs works and trigger the default model download
